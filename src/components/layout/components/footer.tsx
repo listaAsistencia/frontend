@@ -18,7 +18,7 @@ export const Footer = () => {
 const AboutUs: React.FC = () => {
     return (
           <div>
-            <h2 className="text-lg font-bold font-bold mb-4">¿Quiénes somos?</h2>
+            <h2 className="text-lg font-bold mb-4">¿Quiénes somos?</h2>
             <ul className="space-y-2">
               <li>
                 <a href="https://fusalmo.org/salesianos/?view=aboutus&about=salesianity" className="hover:underline">Salesianos</a>
@@ -37,7 +37,7 @@ const AboutUs: React.FC = () => {
 const Employment: React.FC = () => {
     return (
           <div>
-            <h2 className="text-lg font-bold font-bold mb-4">Empleo</h2>
+            <h2 className="text-lg font-bold mb-4">Empleo</h2>
             <ul className="space-y-2">
               <li>
                 <a href="https://fusalmo.org/salesianos/?view=jobs&jobs=employeebag" className="hover:underline">Bolsa de empleo juvenil</a>
@@ -56,7 +56,7 @@ const Employment: React.FC = () => {
 const Projects: React.FC = () => {
     return (
           <div>
-            <h2 className="text-lg font-bold font-bold mb-4">Programas y proyectos</h2>
+            <h2 className="text-lg font-bold mb-4">Programas y proyectos</h2>
             <ul className="space-y-2">
               <li>Programas educativos</li>
               <li>Proyectos tecnológicos</li>
@@ -69,7 +69,7 @@ const Projects: React.FC = () => {
 const CentralLocation: React.FC = () => {
     return (
           <div>
-            <h2 className="text-lg font-bold font-bold mb-4">Sede Central</h2>
+            <h2 className="text-lg font-bold mb-4">Sede Central</h2>
             <p className="mb-4">
               Centro Juvenil Salesiano FUSALMO<br />
               Internecedor: Carmen a San Miguel y Calle a Tonenchepeura después del paso a desnivel de Unicentro<br />
