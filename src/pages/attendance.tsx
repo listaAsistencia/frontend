@@ -1,5 +1,9 @@
+import { GeneralLayOut } from "../components/layout/generalLayout";
+
 export const AttendancePage: React.FC = () => {
     return (
-        <>Soy la página de asistencia</>
+        <GeneralLayOut>
+            <div className="text-5xl">Soy la página de la asistencia</div>
+        </GeneralLayOut>
     );
 }

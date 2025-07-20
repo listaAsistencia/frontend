@@ -1,5 +1,9 @@
+import { GeneralLayOut } from "../components/layout/generalLayout";
+
 export const HomePage: React.FC = () => {
     return (
-        <>Soy la página del dashboard</>
+        <GeneralLayOut>
+            <div className="text-5xl">Soy la página del dashboard</div>
+        </GeneralLayOut>
     );
 }
