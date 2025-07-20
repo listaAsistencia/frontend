@@ -81,7 +81,7 @@ const CentralLocation: React.FC = () => {
 
 const PolicyAndPrivacy: React.FC = () => {
     return(
-        <div className="border-t border-gray-300 pt-6">
+        <div className="border-t border-secondary-300 pt-6">
           {/* Privacy and copyright */}
           <div className="flex flex-col md:flex-row justify-between items-center mb-6">
             <div className="flex space-x-4 mb-4 md:mb-0">
