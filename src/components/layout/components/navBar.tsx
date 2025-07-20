@@ -25,6 +25,6 @@ export const NavBar: React.FC<Props> = ({hideLogout=false}) => {
 const LogOutButton = () => {
     const logOutFunction = () => console.log("*Se desloguea*");
      return (
-     <GeneralButton text="Cerrar sesión" handleClick={logOutFunction}/>
+     <GeneralButton text="Cerrar sesión" handleClick={logOutFunction} />
     ); 
 }

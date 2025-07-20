@@ -6,7 +6,7 @@ interface RadialProgressProps {
   className?: string;
 }
 
-export const RadialProgress: React.FC<RadialProgressProps> = ({
+export const AttendanceProgress: React.FC<RadialProgressProps> = ({
   value,
   size = 120,
   strokeWidth = 12,
