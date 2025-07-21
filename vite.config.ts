@@ -5,6 +5,10 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   define: {
-    global: {}, // opcional para evitar errores de dependencias que usan "global"
+    global: {}, 
   },
+  server: {
+    host: true, 
+    port: 3000,
+  }
 })
