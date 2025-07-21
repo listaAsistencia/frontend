@@ -7,7 +7,7 @@ import { AttendancePage }from '../pages/attendance';
 import { ErrorPage }     from '../pages/errorPage';
 
 export const routes: RouteObject[] = [
-  // { path: '/',           element: <HomePage />      },
+  { path: '/',           element: <HomePage />      },
   { path: '/login',      element: <LoginPage />     },
   { path: '/home',       element: <HomePage />      },
   { path: '/profile',    element: <ProfilePage />   },

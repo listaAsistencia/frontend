@@ -69,11 +69,12 @@ const Projects: React.FC = () => {
 const CentralLocation: React.FC = () => {
     return (
           <div>
-            <h2 className="text-lg font-bold mb-4">Sede Central</h2>
+            <h2 className="text-lg font-bold mb-2">Sede Central</h2>
             <p className="mb-4">
-              Centro Juvenil Salesiano FUSALMO<br />
-              Internecedor: Carmen a San Miguel y Calle a Tonenchepeura después del paso a desnivel de Unicentro<br />
-              Soyapango, San Salvador, El Salvador
+              Centro Juvenil Salesiano FUSALMO <br/>
+              Intersección Carretera a San Miguel y Calle a
+              Tonacatepeque despues del paso a desnivel de
+              Unicentro Soyapango, San Salvador, El Salvador
             </p>
           </div>
     );
@@ -85,9 +86,9 @@ const PolicyAndPrivacy: React.FC = () => {
           {/* Privacy and copyright */}
           <div className="flex flex-col md:flex-row justify-between items-center mb-6">
             <div className="flex space-x-4 mb-4 md:mb-0">
-              <a href="#" className="hover:underline">Política de Privacidad</a>
+              <p>Política de Privacidad</p>
               <span>|</span>
-              <a href="#" className="hover:underline">Términos y condiciones</a>
+              <p>Términos y condiciones</p>
             </div>
             <div>
               <p>Copyright © 2022 - 2025</p>
