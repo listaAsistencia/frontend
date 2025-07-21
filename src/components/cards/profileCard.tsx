@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const ProfileCard: React.FC = () => {
     return (
-        <div className="w-full h-full p-6 mx-auto right-0 mt-2 w-60 border-2 border-gray-200 rounded-lg shadow-inner bg-white flex items-center justify-center flex-col gap-3">
+        <div className="w-full h-full p-6 mx-auto right-0 mt-2 border-2 border-gray-200 rounded-lg shadow-inner bg-white flex items-center justify-center flex-col gap-3">
             {/* icono */}
             <div className="w-[80%] lg:w-[60%] text-center p-6 bg-primary rounded-t-lg border-2 border-gray-200 rounded-lg shadow-inner">
                 <svg

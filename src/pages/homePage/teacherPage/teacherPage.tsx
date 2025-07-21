@@ -6,14 +6,14 @@ import { PassAttendanceCard } from "./components/AttendanceCard";
 export const TeacherPage: React.FC = () => {
     return (
         <GeneralLayOut>
-            <div className="flex flex-col md:grid grid-cols-4 grid-rows-2 gap-4 p-4">
-                <div className="col-span-2 row-span-2">
+            <div className="min-h-[80vh] w-full flex flex-col justify-center items-center lg:flex-row flex-wrap justify-between gap-4 p-6 sm:p-3">
+                <div className="w-full sm:w-[60%] lg:w-[30%]">
                     <ProfileCard/>
                 </div>
-                <div className="col-span-2 col-start-3">
+                <div className="w-full sm:w-[60%] lg:w-[30%]">
                     <ManageStudentsCard/>
                 </div>
-                <div className="col-span-2 col-start-3 row-start-2">
+                <div className="w-full sm:w-[60%] lg:w-[30%]">
                     <PassAttendanceCard/>
                 </div>
             </div>
