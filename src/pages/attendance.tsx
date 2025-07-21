@@ -1,7 +1,8 @@
 import { GeneralLayOut } from "../components/layout/generalLayout";
 import {useForm} from "react-hook-form"
 import { AttendaceProps, mockNames } from "./mock";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast"
 
 interface AttendanceFormProps {
     date: string,
@@ -9,6 +10,9 @@ interface AttendanceFormProps {
 }
 
 export const AttendancePage: React.FC = () => {
+    //redirección
+    const navigate = useNavigate();
+
     const { register, handleSubmit } = useForm<AttendanceFormProps>({
     defaultValues: {
         students: mockNames,
@@ -23,8 +27,12 @@ export const AttendancePage: React.FC = () => {
     const date = getTodayISOString();
 
     const onSubmit = (data) => {
-        return console.log(data);
+        console.log(data);
+        navigate("/home", { state: { toastMessage: "Asistencia guardada" } });
+        navigate("/home");
+        toast.success("Asistencia guardada exitosamente");
     }
+
     return (
         <GeneralLayOut>
         <div className="flex items-center justify-center min-h-[80vh] bg-gray-100">
@@ -81,7 +89,7 @@ export const AttendancePage: React.FC = () => {
 
                     <button 
                     type="submit" 
-                    className="w-full bg-primary text-white py-2 rounded-xl text-sm font-medium hover:bg-secondary hover:text-black transition-colors duration-300 ease-in-out">
+                    className="w-full text-white bg-primary py-2 rounded-xl text-sm font-medium border-1 border-primary hover:bg-white hover:text-black hover:border hover:border-black transition-colors duration-300 ease-in-out">
                         Guardar asistencia
                     </button>
                     
