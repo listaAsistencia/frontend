@@ -1,9 +1,8 @@
 import { StudentPage } from "./studentPage/studentPage";
 import { TeacherPage } from "./teacherPage/teacherPage";
-type HomePageProps = { isStudent: boolean }
 
 export const HomePage: React.FC = () => {
-    let isStudent = false;
+    let isStudent = true;
     return(
         <>
             {isStudent ? <StudentPage/> : <TeacherPage/>}

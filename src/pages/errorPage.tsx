@@ -2,9 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 export const ErrorPage: React.FC = () => {
     const navigate = useNavigate();
-    const handleVolver=()=>{
-        navigate(-1);
-    }
+    const handleVolver = () => navigate(-1);
     return (
         <div className="flex items-center justify-center min-h-screen bg-overlay_1">
             <div className="p-8 text-center bg-overlay_1 rounded-lg shadow-primary shadow-md">
