@@ -3,7 +3,7 @@ import { NavBar } from '../components/layout/components/navBar';
 import { Footer } from '../components/layout/components/footer';
 import { GeneralButton } from '../components/buttons/generalButton';
 
-export const LoginPage: React.FC = () => {
+export const VerificationCode: React.FC = () => {
 
     const handleSubmit = (e:React.FormEvent)=>{
         e.preventDefault();
@@ -14,29 +14,20 @@ export const LoginPage: React.FC = () => {
             <NavBar hideLogout/>
                  <div className="relative flex min-h-screen text-gray-800 antialiased flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
             <div className="relative py-3 mx-auto text-center w-full max-w-md md:max-w-lg lg:max-w-xl px-4 sm:px-0">
-                <span className="text-xl md:text-2xl font-bold mb-6 block">Iniciar sesión con sus credenciales.</span>
+                <span className="text-xl md:text-2xl font-bold mb-6 block">Ingrese el código de verificación enviado a su correo electrónico.</span>
                 <div className="mt-6 bg-white shadow-lg rounded-lg text-left">
                     <div className="h-3 bg-primary rounded-t-md"/>
                     <form onSubmit={handleSubmit} className="px-10 py-8">
                         <div className='mb-6'>
-                            <label className="block text-lg font-bold">Correo electrónico</label>
+                            <label className="block text-lg font-bold">Código de verificación</label>
                         <input
                             type="email"
-                            placeholder="Correo electrónico"
-                            className="border w-full h-12 px-4 py-2 text-lg hover:outline-none focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
-                        />
-                        </div>
-                        <div className='mb-6'>
-                            <label className="block text-lg font-bold">Contraseña</label>
-                        <input
-                            type="password"
-                            placeholder="Contraseña"
+                            placeholder="Código de verificacióon"
                             className="border w-full h-12 px-4 py-2 text-lg hover:outline-none focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
                         />
                         </div>
                         <div className="flex justify-between items-center">
-                            <GeneralButton text="Iniciar sesión" handleClick={Object} hoverBgWhite={false}/>
-                            <a href='/sendmail' className="text-sm font-bold hover:underline text-gray-600 hover:text-primary">¿Olvidaste la contraseña?</a>
+                            <GeneralButton text="Enviar Código" handleClick={Object} hoverBgWhite={false}/>
                         </div>                        
                     </form>
                 </div>
