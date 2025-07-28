@@ -2,7 +2,7 @@ import { GeneralLayOut } from "../components/layout/generalLayout";
 import { useForm } from "react-hook-form"
 import { AttendaceProps, mockNames } from "./homePage/mocks/mock";
 import { Link, useNavigate } from "react-router-dom";
-import { showSuccessNotification } from "../utils/notifications/toasts";
+import { showErrorNotification, showSuccessNotification } from "../utils/notifications/toasts";
 import { patchRequest } from "../utils/requests/patch";
 
 interface AttendanceFormProps {
@@ -16,7 +16,8 @@ export const AttendancePage: React.FC = () => {
 
     const { register, handleSubmit } = useForm<AttendanceFormProps>({
         defaultValues: {
-            students: mockNames,
+            date: "",
+            students: mockNames
         }
     });
 
@@ -27,13 +28,20 @@ export const AttendancePage: React.FC = () => {
 
     const date = getTodayISOString();
 
-    const onSubmit = (data) => {
-        patchRequest({ route: "/attendance", body: data });
-        console.log(data);
-        navigate("/home", { state: { toastMessage: "Asistencia guardada" } });
-        navigate("/home");
-        showSuccessNotification("Asistencia guardada exitosamente");
-    }
+    const onSubmit = async (data: AttendanceFormProps) => {
+        try {
+            const dataWithDate = {
+                ...data,
+                date: date,
+            };
+            await patchRequest({ route: "/attendance", body: dataWithDate });
+            navigate("/home");
+            showSuccessNotification("Asistencia guardada exitosamente");
+        } catch (error) {
+            console.error(error);
+            showErrorNotification("Hubo un error al guardar la asistencia");
+        }
+    };
 
     return (
         <GeneralLayOut>
@@ -52,14 +60,19 @@ export const AttendancePage: React.FC = () => {
                                 Fecha:
                             </label>
                             <p className="text-sm">{date.split("T")[0]}</p>
-                            <input
+                            {/* <input
                                 type="date"
                                 id="fecha"
                                 className="hidden"
                                 defaultValue={date}
                                 {...register("date")}
 
+                            /> */}
+                            <input
+                                type="hidden"
+                                {...register("date")}
                             />
+
                         </div>
 
                         <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
