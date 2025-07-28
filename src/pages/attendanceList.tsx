@@ -1,6 +1,6 @@
 import { GeneralLayOut } from "../components/layout/generalLayout";
 import { useForm } from "react-hook-form"
-import { AttendaceProps, mockNames } from "./mock";
+import { AttendaceProps, mockNames } from "./homePage/mocks/mock";
 import { Link, useNavigate } from "react-router-dom";
 import { showSuccessNotification } from "../utils/notifications/toasts";
 

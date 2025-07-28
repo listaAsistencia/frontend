@@ -1,13 +1,14 @@
-import { defineConfig } from "vite"
-import react from "@vitejs/plugin-react-swc"
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   define: {
-    global: {}, 
+    global: {},
   },
-  server: {
-    host: true, 
-  }
+  // server: {
+  //   host: true
+  // }
 })

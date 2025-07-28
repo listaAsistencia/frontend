@@ -2,7 +2,7 @@ import { StudentPage } from "./studentPage/studentPage";
 import { TeacherPage } from "./teacherPage/teacherPage";
 
 export const HomePage: React.FC = () => {
-    let isStudent = true;
+    let isStudent = false;
     return(
         <>
             {isStudent ? <StudentPage/> : <TeacherPage/>}

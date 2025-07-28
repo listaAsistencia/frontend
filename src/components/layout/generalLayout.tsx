@@ -1,6 +1,5 @@
 import { NavBar } from "./components/navBar";
 import { Footer } from "./components/footer";
-import {Toaster} from "react-hot-toast"
 
 type PropsGeneralLayout = {
   children?: React.ReactNode;
