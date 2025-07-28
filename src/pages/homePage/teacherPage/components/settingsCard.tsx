@@ -26,21 +26,6 @@ export const SettingsCard: React.FC = () => {
                     </div>
                 </div>
             </Link>
-
-            <Link
-                to={"/attendance"}
-                className="space-y-2 p-4 w-[80%] lg:w-[60%] border-2 border-gray-200 rounded-lg shadow-inner bg-white hover:bg-secondary transition-colors duration-300">
-                <div
-                    className="flex items-center px-4 py-3"
-                >
-                    <div className="text-green-600">
-                        <RightArrowIcon/>
-                    </div>
-                    <div className="pl-3">
-                        <p className="text-sm font-medium text-gray-800">Agregar docente</p>
-                    </div>
-                </div>
-            </Link>
         </div>
     );
 }
