@@ -8,7 +8,7 @@ export default defineConfig({
   define: {
     global: {},
   },
-  // server: {
-  //   host: true
-  // }
+  server: {
+    host: true
+  }
 })

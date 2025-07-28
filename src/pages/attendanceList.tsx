@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import { AttendaceProps, mockNames } from "./homePage/mocks/mock";
 import { Link, useNavigate } from "react-router-dom";
 import { showSuccessNotification } from "../utils/notifications/toasts";
+import { patchRequest } from "../utils/requests/patch";
 
 interface AttendanceFormProps {
     date: string,
@@ -27,6 +28,7 @@ export const AttendancePage: React.FC = () => {
     const date = getTodayISOString();
 
     const onSubmit = (data) => {
+        patchRequest({ route: "/attendance", body: data });
         console.log(data);
         navigate("/home", { state: { toastMessage: "Asistencia guardada" } });
         navigate("/home");
