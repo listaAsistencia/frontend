@@ -3,13 +3,17 @@ import { UserIcon } from "../icons/userIcon";
 import { RightArrowIcon } from "../icons/rightArrow";
 
 export const ProfileCard: React.FC = () => {
+const userName= localStorage.getItem('userName') || 'Usuario';
+const userEmail= localStorage.getItem('userEmail') || 'correo@correo.com';
+
+const userRol=localStorage.getItem('userRole') || 'estudiante';
   return (
     <div className="w-full h-full p-6 border-2 border-gray-200 rounded-lg shadow-inner flex items-center justify-center flex-col gap-3">
       {/* icono */}
       <div className="w-[80%] lg:w-[60%] text-center p-2 bg-primary rounded-t-lg border-2 border-gray-200 rounded-lg shadow-inner">
         <UserIcon />
-        <p className="pt-2 text-lg font-semibold text-gray-50">Eobard Thawne</p>
-        <p className="pt-2 text-md font-semibold text-gray-50">dembele@gmail.com</p>
+        <p className="pt-2 text-lg font-semibold text-gray-50">{userName}</p>
+        <p className="pt-2 text-md font-semibold text-gray-50">{userEmail}</p>
       </div>
 
       {/* opciones */}

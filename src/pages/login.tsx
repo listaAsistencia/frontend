@@ -34,6 +34,8 @@ const API_LOGIN = import.meta.env.VITE_API_LOGIN;
             if (data.token) {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('userRole', data.role);
+                localStorage.setItem('userName', data.name);
+                localStorage.setItem('userEmail', data.email);
                 showSuccessNotification(`Bienvenido/a ${data.name}`);
 
                 if(data.role==='docente'){
