@@ -2,34 +2,52 @@ import React, { useState } from 'react';
 import { NavBar } from '../components/layout/components/navBar';
 import { Footer } from '../components/layout/components/footer';
 import { GeneralButton } from '../components/buttons/generalButton';
+import { showErrorNotification, showSuccessNotification } from '../utils/notifications/toasts';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+const API_LOGIN = import.meta.env.VITE_API_LOGIN;
 
         try {
-            const response = await fetch('http://localhost:4000/api/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
+          const response = await fetch(API_LOGIN, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password }),
+});
+
 
             const data = await response.json();
+            if(!response.ok || !data.success){
+                const errorMessage = data.message || data.error || 'Error al iniciar sesión';
+            showErrorNotification(errorMessage);
+            return;
+            }
 
             if (data.token) {
                 localStorage.setItem('token', data.token);
-                alert(`Bienvenido ${data.role}`);
+                localStorage.setItem('userRole', data.role);
+                showSuccessNotification(`Bienvenido/a ${data.name}`);
+
+                if(data.role==='docente'){
+                    navigate("/home");
+                }else{
+                    navigate("/student")
+                }
             } else {
-                alert(data.error);
+                const errorMessage = data.message||data.error|| "Error desconocido";
+                showErrorNotification(errorMessage);
             }
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
-            alert('Error al iniciar sesión');
+            showErrorNotification('Error al iniciar sesión');
         }
     };
 

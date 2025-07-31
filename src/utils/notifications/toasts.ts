@@ -5,5 +5,5 @@ export const showSuccessNotification = (message: string) => {
 }
 
 export const showErrorNotification = (message: string) => {
-    toast.success(message);
+    toast.error(message);
 }
