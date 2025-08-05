@@ -1,5 +1,6 @@
 import logo from "../../../assets/logo.webp"
 import { GeneralButton } from "../../buttons/generalButton";
+import { useNavigate } from "react-router-dom";
 
 type Props ={
     hideLogout?: boolean;
@@ -24,7 +25,11 @@ export const NavBar: React.FC<Props> = ({hideLogout=false}) => {
 };
 
 const LogOutButton = () => {
-    const logOutFunction = () => console.log("*Se desloguea*");
+    const navigate=useNavigate();
+    const logOutFunction = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    }
      return (
      <GeneralButton text="Cerrar sesión" handleClick={logOutFunction} />
     ); 

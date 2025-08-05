@@ -18,7 +18,7 @@ const userRol=localStorage.getItem('userRole') || 'estudiante';
 
       {/* opciones */}
       <Link
-        to={"/attendance"}
+        to={"/ResetPassword"}
         className="space-y-2 p-4 w-[80%] lg:w-[60%] border-2 border-gray-200 rounded-lg shadow-inner bg-white hover:bg-secondary transition-colors duration-300"
       >
         <div className="flex items-center px-4 py-3">

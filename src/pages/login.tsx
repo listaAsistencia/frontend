@@ -12,23 +12,29 @@ export const LoginPage: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-const API_LOGIN = import.meta.env.VITE_API_LOGIN;
+        const API_LOGIN = import.meta.env.VITE_API_LOGIN;
 
         try {
-          const response = await fetch(API_LOGIN, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-});
+            const response = await fetch(API_LOGIN, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
+            let data;
+            try {
+                data = await response.json();
+            } catch {
+                showErrorNotification('Error al procesar la respuesta del servidor');
+                return;
+            }
 
-            const data = await response.json();
-            if(!response.ok || !data.success){
+            if (!response.ok || !data.success) {
                 const errorMessage = data.message || data.error || 'Error al iniciar sesión';
-            showErrorNotification(errorMessage);
-            return;
+                showErrorNotification(errorMessage);
+                return;
             }
 
             if (data.token) {
@@ -38,13 +44,13 @@ const API_LOGIN = import.meta.env.VITE_API_LOGIN;
                 localStorage.setItem('userEmail', data.email);
                 showSuccessNotification(`Bienvenido/a ${data.name}`);
 
-                if(data.role==='docente'){
+                if (data.role === 'docente') {
                     navigate("/home");
-                }else{
-                    navigate("/student")
+                } else {
+                    navigate("/student");
                 }
             } else {
-                const errorMessage = data.message||data.error|| "Error desconocido";
+                const errorMessage = data.message || data.error || "Error desconocido";
                 showErrorNotification(errorMessage);
             }
         } catch (error) {

@@ -3,6 +3,7 @@ type ButtonProps = {
     handleClick?: () => void;
     hoverBgWhite?: boolean;
     type?: "button" | "submit" | "reset";
+    disabled?: boolean; 
 };
 
 export const GeneralButton: React.FC<ButtonProps> = ({
