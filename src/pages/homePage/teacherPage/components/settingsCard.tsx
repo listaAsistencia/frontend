@@ -22,7 +22,7 @@ export const SettingsCard: React.FC = () => {
                         <RightArrowIcon />
                     </div>
                     <div className="pl-3">
-                        <p className="text-sm font-medium text-gray-800">Gestiónar alumnos</p>
+                        <p className="text-sm font-medium text-gray-800">Gestionar alumnos</p>
                     </div>
                 </div>
             </Link>

@@ -15,9 +15,8 @@ export const routes: RouteObject[] = [
   path:'/',
   element: <LoginPage/>
 },
-{ path: '/login', element: <LoginPage /> },
+  { path: '/login', element: <LoginPage /> },
   { path: '/sendmail', element: <SendMail /> },
-  { path: '/attendance', element: <AttendancePage /> },
   { path: '/verificationcode', element: <VerificationCode /> },
   { path: '/resetpassword', element: <ResetPassword /> },
 {
@@ -36,4 +35,12 @@ export const routes: RouteObject[] = [
         </ProtectedRoute>
     ),
 },
+{
+    path: '/attendance',
+    element: (
+        <ProtectedRoute requiredRole="docente">
+            <AttendancePage/>
+        </ProtectedRoute>   
+    ),
+}
 ];

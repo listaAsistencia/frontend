@@ -4,6 +4,7 @@ export interface UserProps {
     id: string;
     name: string;
     isPresent: boolean;
+    role: string;
 }
 
 export const useUsers = () => {
@@ -17,10 +18,11 @@ export const useUsers = () => {
             try {
                 const response = await fetch(API_USERS);
                 if (!response.ok) {
-                    throw new Error('Failed to fetch users');
+                    throw new Error('error en el fetching de estudiantes');
                 }
                 const data: UserProps[] = await response.json();
-                setUsers(data);
+                const students=data.filter(user=>user.role==='estudiante');
+                setUsers(students);
                 setLoading(false);
             } catch (err: any) {
                 setError(err.message);
