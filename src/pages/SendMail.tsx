@@ -2,11 +2,14 @@ import React from 'react'
 import { NavBar } from '../components/layout/components/navBar';
 import { Footer } from '../components/layout/components/footer';
 import { GeneralButton } from '../components/buttons/generalButton';
+import { useForgotPasswordStore } from '../store/forgotPasswordStore';
 
 export const SendMail: React.FC = () => {
-
+  const [email, setEmail] = React.useState('');
+  const{setMail:setStoreEmail,setStep}=useForgotPasswordStore();
     const handleSubmit = (e:React.FormEvent)=>{
         e.preventDefault();
+        setStoreEmail(email);setStep('verificationCode');
     }
 
     return (
@@ -24,7 +27,11 @@ export const SendMail: React.FC = () => {
                             type="email"
                             placeholder="Correo electrónico"
                             className="border w-full h-12 px-4 py-2 text-lg hover:outline-none focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
+                            value={email}
+                            onChange={(e)=>setEmail(e.target.value)}
+                            required
                         />
+                        
                         </div>
                         <div className="flex justify-between items-center">
                             <GeneralButton text="Enviar correo" handleClick={Object} hoverBgWhite={false}/>
