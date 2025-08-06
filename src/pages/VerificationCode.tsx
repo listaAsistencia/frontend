@@ -2,11 +2,15 @@ import React from 'react'
 import { NavBar } from '../components/layout/components/navBar';
 import { Footer } from '../components/layout/components/footer';
 import { GeneralButton } from '../components/buttons/generalButton';
-
+import { useForgotPasswordStore } from '../store/forgotPasswordStore';
 export const VerificationCode: React.FC = () => {
+ const [code, setCode] = React.useState<string>('');
+   const [loading, setLoading] = React.useState<boolean>(false);
+const { setCode: setCodeStore, setStep, email } = useForgotPasswordStore();
 
     const handleSubmit = (e:React.FormEvent)=>{
         e.preventDefault();
+        setCodeStore(code);setStep('resetPassword');
     }
 
     return (
@@ -21,13 +25,16 @@ export const VerificationCode: React.FC = () => {
                         <div className='mb-6'>
                             <label className="block text-lg font-bold">Código de verificación</label>
                         <input
-                            type="email"
+                            type="text"
                             placeholder="Código de verificacióon"
                             className="border w-full h-12 px-4 py-2 text-lg hover:outline-none focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
+                            value={code}
+                            onChange={(e) => setCode(e.target.value)}
+                            required
                         />
                         </div>
                         <div className="flex justify-between items-center">
-                            <GeneralButton text="Enviar Código" handleClick={Object} hoverBgWhite={false}/>
+                            <GeneralButton text="Verificar Código" type="submit" hoverBgWhite={false} disabled={loading}/>
                         </div>                        
                     </form>
                 </div>

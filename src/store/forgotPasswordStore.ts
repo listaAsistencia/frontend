@@ -2,7 +2,7 @@ import {create} from 'zustand'
 
 interface ForgotPasswordState{
     email:string;
-    code:string;
+    verificationcode:string;
     step:'sendMail' |'verificationCode'|'resetPassword';
     setMail:(email:string)=>void;
     setCode:(code:string)=>void;
@@ -11,10 +11,10 @@ interface ForgotPasswordState{
 }
 export const useForgotPasswordStore = create<ForgotPasswordState>((set) => ({
   email: '',
-  code: '',
+  verificationcode: '',
   step: 'sendMail',
   setMail: (email) => set({ email }),
-  setCode: (code) => set({ code }),
+  setCode: (code) => set({ verificationcode:code }),
   setStep: (step) => set({ step }),
-  reset: () => set({ email: '', code: '', step: 'sendMail' }),
+  reset: () => set({ email: '', verificationcode: '', step: 'sendMail' }),
 }));

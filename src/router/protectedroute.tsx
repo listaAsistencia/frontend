@@ -6,19 +6,19 @@ interface ProtectedRouteProps {
   fallbackPath?: string;
 }
 
-export const ProtectedRoute = ({
+export const ProtectedRoute:React.FC<ProtectedRouteProps> = ({
   children, 
   requiredRole,
   fallbackPath = '/login'
-}: ProtectedRouteProps) => {
-  const token = localStorage.getItem('token');
+})=>{
+   const token = localStorage.getItem('token');
   const userRole = localStorage.getItem('userRole');
-  if (!token) {
+
+    if (!token) {
     return <Navigate to="/login" replace />;
   }
-  if (!userRole || userRole !== requiredRole) {
-    return <Navigate to={fallbackPath} replace />;
-  }
-
-  return children;
+  if (requiredRole && (!userRole || userRole !== requiredRole)) {
+    return <Navigate to={fallbackPath}replace/>;
+} 
+return<>{children}</>
 };

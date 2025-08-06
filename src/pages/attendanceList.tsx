@@ -1,7 +1,7 @@
 import { GeneralLayOut } from "../components/layout/generalLayout";
 import { useForm } from "react-hook-form";
-import { useUsers } from "../hooks/users";
-import { UserProps } from "../hooks/users";
+import { useUsers} from "../hooks/users";
+import type { UserProps } from "../hooks/users";
 import { Link, useNavigate } from "react-router-dom";
 import { showErrorNotification, showSuccessNotification } from "../utils/notifications/toasts";
 import { patchRequest } from "../utils/requests/patch";
@@ -57,7 +57,6 @@ export const AttendancePage: React.FC = () => {
                     <form
                         className="flex flex-col gap-3"
                         onSubmit={handleSubmit(onSubmit)}>
-                        {/* Fecha */}
                         <div className="flex flex-row justify-between">
                             <label htmlFor="fecha" className="text-sm mb-1">
                                 Fecha:

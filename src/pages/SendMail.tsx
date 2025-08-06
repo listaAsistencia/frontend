@@ -6,6 +6,7 @@ import { useForgotPasswordStore } from '../store/forgotPasswordStore';
 
 export const SendMail: React.FC = () => {
   const [email, setEmail] = React.useState('');
+    const [loading, setLoading] = React.useState<boolean>(false);
   const{setMail:setStoreEmail,setStep}=useForgotPasswordStore();
     const handleSubmit = (e:React.FormEvent)=>{
         e.preventDefault();
@@ -34,7 +35,7 @@ export const SendMail: React.FC = () => {
                         
                         </div>
                         <div className="flex justify-between items-center">
-                            <GeneralButton text="Enviar correo" handleClick={Object} hoverBgWhite={false}/>
+                            <GeneralButton text="Enviar correo" type="submit" hoverBgWhite={false} disabled={loading}/>
                         </div>                        
                     </form>
                 </div>
