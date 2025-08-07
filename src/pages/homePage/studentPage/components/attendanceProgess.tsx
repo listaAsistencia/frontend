@@ -1,37 +1,42 @@
 interface RadialProgressProps {
-  value: number;           // porcentaje (0 a 100)
-  size?: number;           // tamaño en px (default 120)
-  strokeWidth?: number;    // grosor del círculo (default 12)
-  passMark?: number;       // porcentaje para aprobar (default 75)
+  attendedDays: number;
+  size?: number;
+  strokeWidth?: number;
+  passMark?: number;
   className?: string;
 }
 
 export const AttendanceProgress: React.FC<RadialProgressProps> = ({
-  value,
+  attendedDays,
   size = 120,
   strokeWidth = 12,
   passMark = 75,
   className,
 }) => {
+  const totalDays = 33;
+  const rawPercentage = (attendedDays / totalDays) * 100;
+  const percentage = Math.min(rawPercentage, 100);
+  const roundedPercentage = Math.floor(percentage);
+
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (value / 100) * circumference;
-  const faltante = Math.max(passMark - value, 0);
+  const offset = circumference - (roundedPercentage / 100) * circumference;
 
-  const textoFaltante =
-    faltante > 0
-      ? `Necesitas ${faltante.toFixed(1)}% para aprobar`
+  const missingPercent = Math.max(passMark - roundedPercentage, 0);
+  const missingText =
+    missingPercent > 0
+      ? `Necesitas ${missingPercent}% para aprobar`
       : '¡Aprobado!';
 
-  const strokeColor = value >= passMark ? '#14346D' : '#facc15'; // verde o amarillo
+  const strokeColor = roundedPercentage >= passMark ? '#14346D' : '#facc15';
 
   return (
     <div
       role="progressbar"
-      aria-valuenow={value}
+      aria-valuenow={roundedPercentage}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-label={`Progreso: ${value}%. ${textoFaltante}`}
+      aria-label={`Progreso: ${roundedPercentage}%. ${missingText}`}
       className={`flex flex-col items-center justify-center ${className ?? ''}`}
     >
       <svg width={size} height={size}>
@@ -64,7 +69,7 @@ export const AttendanceProgress: React.FC<RadialProgressProps> = ({
           fill="#14346D"
           fontWeight="bold"
         >
-          {`${value}%`}
+          {`${roundedPercentage}%`}
         </text>
       </svg>
 
@@ -72,7 +77,7 @@ export const AttendanceProgress: React.FC<RadialProgressProps> = ({
         className="mt-2 text-center font-semibold text-titles"
         style={{ fontSize: size * 0.13, maxWidth: size + 40 }}
       >
-        {textoFaltante}
+        {missingText}
       </p>
     </div>
   );

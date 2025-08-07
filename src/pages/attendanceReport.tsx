@@ -1,6 +1,12 @@
+type Absence = {
+    id: number;
+    date: string;
+    studentId: number;
+};
+
 type AbsenceReportProps = {
     attendedDays: number;
-    absences: string[];
+    absences: Absence[];
 };
 
 export const AttendanceReport: React.FC<AbsenceReportProps> = ({
@@ -25,7 +31,7 @@ export const AttendanceReport: React.FC<AbsenceReportProps> = ({
                     <p className="text-gray-600 text-sm md:text-md">Ausencias</p>
                 </div>
                 <div>
-                    <p className="text-md md:text-xl font-semibold">625</p>
+                    <p className="text-md md:text-xl font-semibold">{33 - attendedDays}</p>
                     <p className="text-gray-600 text-sm md:text-md">Días necesarios</p>
                 </div>
             </div>
@@ -40,14 +46,12 @@ export const AttendanceReport: React.FC<AbsenceReportProps> = ({
 
                 <div className="overflow-y-auto pr-2">
                     <ul className="list-disc list-inside text-gray-700 space-y-1">
-                        {absences.map((date, index) => (
-                            <li
-                                key={index}
-                                className="flex items-center rounded-xl px-3 py-2 bg-gray-50"
-                            >
-                                {date}
+                        {absences.map((absence) => (
+                            <li key={absence.id} className="flex items-center rounded-xl px-3 py-2 bg-gray-50">
+                                {absence.date.slice(0, 10)}
                             </li>
                         ))}
+
                     </ul>
                 </div>
             </div>

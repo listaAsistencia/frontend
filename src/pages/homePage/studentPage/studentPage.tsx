@@ -5,9 +5,29 @@ import { TutorCard } from "./components/tutorCard";
 import { AttendanceProgress } from "./components/attendanceProgess";
 import { AttendanceReport } from "../../attendanceReport";
 import { useShowReport } from "../../../store/useShowAttendanceReport";
-import { absences } from "../mocks/absences";
+import { getRequest } from "../../../utils/requests/get";
+import { useEffect, useState } from "react";
 
 export const StudentPage: React.FC = () => {
+  const id = localStorage.getItem('id');
+  const attendances = Number(localStorage.getItem('attendances'));
+  const [absences, setAbsences] = useState<string[]>([]);
+
+  // Cargar ausencias cuando el componente monte
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchAbsences = async () => {
+      try {
+        const data = await getRequest({ route: `/users/absences/${id}` });
+        setAbsences(data.absences);
+      } catch (error) {
+        console.error("Error cargando ausencias:", error);
+      }
+    };
+
+    fetchAbsences();
+  }, [id]);
   const viewReport = useShowReport((state) => state.showAttendanceReport);
   return (
     <GeneralLayOut>
@@ -29,9 +49,9 @@ export const StudentPage: React.FC = () => {
               </p>
 
               {viewReport ? (
-                <AttendanceReport attendedDays={21} absences={absences} />
+                <AttendanceReport attendedDays={attendances} absences={absences} />
               ) : (
-                <AttendanceProgress value={80} size={180} strokeWidth={16} />
+                <AttendanceProgress attendedDays={attendances} size={180} strokeWidth={16} />
               )}
             </div>
 

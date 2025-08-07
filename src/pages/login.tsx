@@ -39,9 +39,11 @@ export const LoginPage: React.FC = () => {
 
             if (data.token) {
                 localStorage.setItem('token', data.token);
+                localStorage.setItem('id', data.id);
                 localStorage.setItem('userRole', data.role);
                 localStorage.setItem('userName', data.name);
                 localStorage.setItem('userEmail', data.email);
+                localStorage.setItem('attendances', data.attendances);
                 showSuccessNotification(`Bienvenido/a ${data.name}`);
 
                 if (data.role === 'docente') {
