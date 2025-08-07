@@ -1,7 +1,6 @@
 type Absence = {
     id: number;
     date: string;
-    studentId: number;
 };
 
 type AbsenceReportProps = {

@@ -8,18 +8,26 @@ import { useShowReport } from "../../../store/useShowAttendanceReport";
 import { getRequest } from "../../../utils/requests/get";
 import { useEffect, useState } from "react";
 
-export const StudentPage: React.FC = () => {
-  const id = localStorage.getItem('id');
-  const attendances = Number(localStorage.getItem('attendances'));
-  const [absences, setAbsences] = useState<string[]>([]);
+type Absence = {
+  id: number;
+  date: string;
+};
 
-  // Cargar ausencias cuando el componente monte
+type AbsencesResponse = {
+  absences: Absence[];
+};
+
+export const StudentPage: React.FC = () => {
+  const id = localStorage.getItem("id");
+  const attendances = Number(localStorage.getItem("attendances"));
+  const [absences, setAbsences] = useState<Absence[]>([]); // <- Cambiado a Absence[]
+
   useEffect(() => {
     if (!id) return;
 
     const fetchAbsences = async () => {
       try {
-        const data = await getRequest({ route: `/users/absences/${id}` });
+        const data = (await getRequest({ route: `/users/absences/${id}` })) as AbsencesResponse;
         setAbsences(data.absences);
       } catch (error) {
         console.error("Error cargando ausencias:", error);
@@ -28,7 +36,9 @@ export const StudentPage: React.FC = () => {
 
     fetchAbsences();
   }, [id]);
+
   const viewReport = useShowReport((state) => state.showAttendanceReport);
+
   return (
     <GeneralLayOut>
       <div className="flex items-center justify-center min-h-[80vh] w-full p-2">
