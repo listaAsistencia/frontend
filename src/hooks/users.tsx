@@ -22,6 +22,7 @@ export const useUsers = () => {
                 }
                 const data: UserProps[] = await response.json();
                 const students = data.filter(user => user.role === 'estudiante');
+                students.forEach((student) => { student.isPresent = true; })
                 setUsers(students);
                 setLoading(false);
             } catch (err: any) {
