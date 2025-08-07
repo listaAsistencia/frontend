@@ -1,13 +1,12 @@
 import { GeneralLayOut } from "../components/layout/generalLayout";
 import { useForm } from "react-hook-form";
-import { useUsers} from "../hooks/users";
+import { useUsers } from "../hooks/users";
 import type { UserProps } from "../hooks/users";
 import { Link, useNavigate } from "react-router-dom";
 import { showErrorNotification, showSuccessNotification } from "../utils/notifications/toasts";
 import { patchRequest } from "../utils/requests/patch";
 
 interface AttendanceFormProps {
-    date: string;
     students: UserProps[];
 }
 
@@ -17,7 +16,6 @@ export const AttendancePage: React.FC = () => {
 
     const { register, handleSubmit } = useForm<AttendanceFormProps>({
         defaultValues: {
-            date: "",
             students: users || []
         }
     });
@@ -30,11 +28,7 @@ export const AttendancePage: React.FC = () => {
 
     const onSubmit = async (data: AttendanceFormProps) => {
         try {
-            const dataWithDate = {
-                ...data,
-                date: date,
-            };
-            await patchRequest({ route: "/attendance", body: dataWithDate });
+            await patchRequest({ route: "/attendance", body: data });
             navigate("/home");
             showSuccessNotification("Asistencia guardada exitosamente");
         } catch (error) {
@@ -62,10 +56,6 @@ export const AttendancePage: React.FC = () => {
                                 Fecha:
                             </label>
                             <p className="text-sm">{date}</p>
-                            <input
-                                type="hidden"
-                                {...register("date")}
-                            />
                         </div>
 
                         <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
