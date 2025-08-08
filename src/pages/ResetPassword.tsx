@@ -90,7 +90,13 @@ useEffect(()=>{
       const data = await response.json();
       showSuccessNotification(data.message || 'Contraseña cambiada exitosamente');
       reset();
-      navigate(flow === 'change' ? '/profile' : '/login');
+      localStorage.removeItem('token');
+  localStorage.removeItem('id');
+  localStorage.removeItem('userRole');
+  localStorage.removeItem('userName');
+  localStorage.removeItem('userEmail');
+  localStorage.removeItem('attendances');
+      navigate('/login');
       
     } catch (error) {
       console.error(error);

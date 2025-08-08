@@ -47,9 +47,9 @@ export const LoginPage: React.FC = () => {
                 showSuccessNotification(`Bienvenido/a ${data.name}`);
 
                 if (data.role === 'docente') {
-                    navigate("/home");
+                    navigate("/home", {replace:true});
                 } else {
-                    navigate("/student");
+                    navigate("/student", {replace:true});
                 }
             } else {
                 const errorMessage = data.message || data.error || "Error desconocido";
