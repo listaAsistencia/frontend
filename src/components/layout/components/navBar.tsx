@@ -1,6 +1,6 @@
 import logo from "../../../assets/logo.webp"
-import { GeneralButton } from "../../buttons/generalButton";
 import { useNavigate } from "react-router-dom";
+import { GeneralButton } from "../../buttons/generalButton";
 
 type Props ={
     hideLogout?: boolean;
@@ -31,6 +31,6 @@ const LogOutButton = () => {
         navigate('/login');
     }
      return (
-     <GeneralButton text="Cerrar sesión" handleClick={logOutFunction} />
+     <GeneralButton text="Cerrar sesión" onClick={logOutFunction} />
     ); 
 }
