@@ -3,11 +3,13 @@ import { NavBar } from '../components/layout/components/navBar';
 import { Footer } from '../components/layout/components/footer';
 import { GeneralButton } from '../components/buttons/generalButton';
 import { showErrorNotification, showSuccessNotification } from '../utils/notifications/toasts';
+import { EyeIcon } from '../components/icons/eyeIcon';
 import { useNavigate } from 'react-router-dom';
 
 export const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [mostrarPassword, setMostrarPassword]=useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -80,15 +82,25 @@ export const LoginPage: React.FC = () => {
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
-                            <div className="mb-6">
+                            <div className="mb-6 relative">
                                 <label className="block text-lg font-bold">Contraseña</label>
                                 <input
-                                    type="password"
+                                    type={mostrarPassword ? "text" : "password"}
                                     placeholder="Contraseña"
                                     className="border w-full h-12 px-4 py-2 text-lg hover:outline-none focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
+                                <button
+                                    type="button"
+                                    className="absolute right-3 top-10 text-gray-600 hover:text-gray-900"
+                                    onClick={() => setMostrarPassword(!mostrarPassword)}
+                                    aria-label={mostrarPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                                    title={mostrarPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                                >
+                                    <EyeIcon />
+                                </button>
+                                  
                             </div>
                             <div className="flex justify-between items-center">
                                 <GeneralButton text="Iniciar sesión" type="submit" hoverBgWhite={false} />
