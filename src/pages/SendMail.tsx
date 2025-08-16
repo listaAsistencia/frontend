@@ -41,8 +41,11 @@ export const SendMail: React.FC = () => {
       }
 
       setMail(email);
-      setStep('verificationCode');
+      localStorage.setItem('forgotPasswordEmail', email);  
       showSuccessNotification('Código de verificación enviado a tu correo');
+      setTimeout(() => setStep('verificationCode'), 50);
+
+
     } catch (error: any) {
       showErrorNotification(error.message || 'El correo no existe en nuestra base de datos');
     } finally {
