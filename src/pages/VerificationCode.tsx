@@ -47,7 +47,11 @@ const inputRef = React.useRef<HTMLInputElement>(null);
 
       showSuccessNotification('Código verificado correctamente');
       setCodeStore(code);
-      setStep('resetPassword');
+      setTimeout(()=>{
+        if(!loading){
+          setStep('resetPassword');
+        }
+      },1500);
     } catch (error: any) {
       showErrorNotification(error.message || 'Código inválido o expirado');
     } finally {
