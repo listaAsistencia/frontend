@@ -1,17 +1,23 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { NavBar } from '../components/layout/components/navBar';
 import { Footer } from '../components/layout/components/footer';
 import { GeneralButton } from '../components/buttons/generalButton';
 import { useForgotPasswordStore } from '../store/forgotPasswordStore';
 import { showErrorNotification, showSuccessNotification } from '../utils/notifications/toasts';
+import { useNavigate } from 'react-router-dom';
 
 export const VerificationCode: React.FC = () => {
   const [code, setCode] = React.useState<string>('');
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [shouldRedirect, setShouldRedirect] = React.useState(false);
   const { setStep, setCode: setCodeStore, email } = useForgotPasswordStore();
-  body: JSON.stringify({ email, code }) 
-
-  
+  const navigate =useNavigate();  
+useEffect(() => {
+    if (shouldRedirect) {
+      navigate('/resetpassword');
+    }
+  }, [shouldRedirect, navigate]);
 const inputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
@@ -45,13 +51,10 @@ const inputRef = React.useRef<HTMLInputElement>(null);
         throw new Error(data.message || 'Código inválido');
       }
 
-      showSuccessNotification('Código verificado correctamente');
       setCodeStore(code);
-      setTimeout(()=>{
-        if(!loading){
           setStep('resetPassword');
-        }
-      },1500);
+                showSuccessNotification('Código verificado correctamente');
+setShouldRedirect(true);
     } catch (error: any) {
       showErrorNotification(error.message || 'Código inválido o expirado');
     } finally {

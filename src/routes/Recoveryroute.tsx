@@ -7,10 +7,22 @@ interface RecoveryRouteProps {
 }
 
 export const RecoveryRoute: React.FC<RecoveryRouteProps> = ({ children }) => {
-  const { email, verificationcode, step } = useForgotPasswordStore();
-  if (!email || !verificationcode || step !== 'resetPassword') {
+  const { email, code, step } = useForgotPasswordStore();
+   if (!email && step !== 'sendMail') {
     return <Navigate to="/sendmail" replace />;
   }
-
-  return <>{children}</>;
-};
+  if (!code && step === 'resetPassword') {
+    return <Navigate to="/verificationcode" replace />;
+  }
+   if (step === 'sendMail') {
+    return <>{children}</>;
+  }
+  if (step === 'verificationCode' && email) {
+    return <>{children}</>;
+  }
+  if (step === 'resetPassword' && email && code) {
+    return <>{children}</>;
+  }
+  
+  return <Navigate to="/sendmail" replace />;
+  };

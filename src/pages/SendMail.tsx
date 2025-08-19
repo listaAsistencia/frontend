@@ -1,14 +1,24 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { NavBar } from '../components/layout/components/navBar';
 import { Footer } from '../components/layout/components/footer';
 import { GeneralButton } from '../components/buttons/generalButton';
 import { useForgotPasswordStore } from '../store/forgotPasswordStore';
 import { showErrorNotification, showSuccessNotification } from '../utils/notifications/toasts';
+import { useNavigate } from 'react-router-dom';
 
 export const SendMail: React.FC = () => {
   const [email, setEmail] = React.useState('');
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [shouldRedirect, setShouldRedirect] = React.useState(false);
   const { setMail, setStep } = useForgotPasswordStore();
+  const navigate=useNavigate();
+
+  useEffect(() => {
+    if (shouldRedirect) {
+      navigate('/verificationcode');
+    }
+  }, [shouldRedirect, navigate]);
 
   const validateEmail = (email: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -42,13 +52,9 @@ export const SendMail: React.FC = () => {
 
       setMail(email);
       localStorage.setItem('forgotPasswordEmail', email);  
-      setTimeout(()=>{
-        if(!loading){
           setStep('verificationCode');
-        }
-      },1500);
-
-
+          showSuccessNotification('Código enviado a tu correo');
+      setShouldRedirect(true);
     } catch (error: any) {
       showErrorNotification(error.message || 'El correo no existe en nuestra base de datos');
     } finally {

@@ -21,7 +21,7 @@ useEffect(()=>{
     validate();
   }
 }, [current, newPass, confirm, touched]);
-  const { email, verificationcode, reset } = useForgotPasswordStore();
+  const { email, code, reset } = useForgotPasswordStore();
   const navigate = useNavigate();
 
   const validate = () => {
@@ -52,60 +52,70 @@ useEffect(()=>{
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validate()) return;
+  e.preventDefault();
+  if (!validate()) return;
 
-    setLoading(true);
-    try {
-      const endpoint = flow === 'change' 
-        ? import.meta.env.VITE_API_CHANGEPASSWORD 
-        : import.meta.env.VITE_API_RESETPASSWORD;
+  setLoading(true);
+  try {
+    const finalEmail = email || localStorage.getItem('forgotPasswordEmail');
+    const finalCode = code || localStorage.getItem('forgotPasswordCode');
 
-      const headers = {
-        'Content-Type': 'application/json',
-        ...(flow === 'change' && { 'Authorization': `Bearer ${localStorage.getItem('token')}` })
-      };
+    const endpoint = flow === 'change'
+      ? import.meta.env.VITE_API_CHANGEPASSWORD
+      : import.meta.env.VITE_API_RESETPASSWORD;
 
-      const body = flow === 'change'
-        ? { currentPassword: current, newPassword: newPass }
-        : { email, verificationcode, newPassword: newPass };
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
 
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(body),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        try {
-          const errorData = JSON.parse(errorText);
-          showErrorNotification(errorData.message || 'Error al cambiar la contraseña');
-        } catch {
-          showErrorNotification(errorText || 'Error en el servidor');
-        }
+    if (flow === 'change') {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        showErrorNotification('No estás autenticado');
+        navigate('/login');
         return;
       }
-
-      const data = await response.json();
-      showSuccessNotification(data.message || 'Contraseña cambiada exitosamente');
-      reset();
-      localStorage.removeItem('token');
-  localStorage.removeItem('id');
-  localStorage.removeItem('userRole');
-  localStorage.removeItem('userName');
-  localStorage.removeItem('userEmail');
-  localStorage.removeItem('attendances');
-      navigate('/login');
-      
-    } catch (error) {
-      console.error(error);
-      showErrorNotification('Error de conexión con el servidor');
-    } finally {
-      setLoading(false);
+      headers['Authorization'] = `Bearer ${token}`;
     }
-  };
 
+    const body = flow === 'change'
+      ? { currentPassword: current, newPassword: newPass }
+      : { email: finalEmail, code: finalCode, newPassword: newPass };
+
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      try {
+        const errorData = JSON.parse(errorText);
+        showErrorNotification(errorData.message || 'Error');
+      } catch {
+        showErrorNotification(errorText || 'Error en el servidor');
+      }
+      return;
+    }
+
+    const data = await response.json();
+    showSuccessNotification(data.message || 'Contraseña cambiada');
+    reset();
+    localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('attendances');
+    navigate('/login');
+  } catch (error) {
+    console.error(error);
+    showErrorNotification('Error de conexión');
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <>
       <NavBar hideLogout={flow === 'recovery'} />
