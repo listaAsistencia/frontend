@@ -40,6 +40,7 @@ export const LoginPage: React.FC = () => {
             }
 
             if (data.token) {
+                console.log(data)
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('id', data.id);
                 localStorage.setItem('userRole', data.role);

@@ -3,6 +3,7 @@ import React from "react";
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   text: string;
   hoverBgWhite?: boolean;
+  handleClick: () => void;
 };
 
 export const GeneralButton: React.FC<Props> = ({
@@ -10,6 +11,7 @@ export const GeneralButton: React.FC<Props> = ({
   hoverBgWhite = true,
   className = "",
   disabled = false,
+  handleClick,
   ...rest
 }) => {
   const base = `h-auto focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 me-2 transition-colors duration-300 ease-in-out`;
@@ -22,9 +24,9 @@ export const GeneralButton: React.FC<Props> = ({
   return (
     <button
       {...rest}
-      disabled={disabled}
       aria-disabled={disabled}
       className={`${base} ${variant} ${className}`}
+      onClick={handleClick}
     >
       {text}
     </button>

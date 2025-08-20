@@ -8,10 +8,10 @@ type AbsenceReportProps = {
     absences: Absence[];
 };
 
-export const AttendanceReport: React.FC<AbsenceReportProps> = ({
-    attendedDays,
-    absences,
-}) => {
+export const AttendanceReport: React.FC<AbsenceReportProps> = ({attendedDays, absences,}) => {
+    if (isNaN(attendedDays)) attendedDays = 0;
+    if (absences.length === 0) absences = [];
+
     return (
         <div className="w-full h-full p-1 sm:p-6 flex flex-col gap-3">
             <div className="text-center">

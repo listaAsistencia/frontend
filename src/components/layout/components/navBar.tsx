@@ -31,6 +31,6 @@ const LogOutButton = () => {
         navigate('/login');
     }
      return (
-     <GeneralButton text="Cerrar sesión" onClick={logOutFunction} />
+     <GeneralButton text="Cerrar sesión" handleClick={logOutFunction} />
     ); 
 }

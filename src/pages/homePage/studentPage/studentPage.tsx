@@ -20,15 +20,17 @@ type AbsencesResponse = {
 export const StudentPage: React.FC = () => {
   const id = localStorage.getItem("id");
   const attendances = Number(localStorage.getItem("attendances"));
-  const [absences, setAbsences] = useState<Absence[]>([]); // <- Cambiado a Absence[]
+  const [absences, setAbsences] = useState<Absence[]>([]); 
 
   useEffect(() => {
     if (!id) return;
 
     const fetchAbsences = async () => {
       try {
+        console.log(attendances);
         const data = (await getRequest({ route: `/users/absences/${id}` })) as AbsencesResponse;
-        setAbsences(data.absences);
+      setAbsences(data.absences || []);
+        console.log(data.absences)
       } catch (error) {
         console.error("Error cargando ausencias:", error);
       }
@@ -53,7 +55,7 @@ export const StudentPage: React.FC = () => {
           {/* Columna derecha */}
           <div className="md:col-span-2 flex flex-col gap-4 h-full">
             {/* Contenedor principal */}
-            <div className="w-full flex flex-col justify-center items-center gap-5 rounded-lg p-4 border-2 border-gray-200 shadow-inner h-[290px] sm:h-[320px] md:h-[400px] max-h-[475px] overflow-hidden sm:overflow-auto">
+            <div className="w-full flex flex-col justify-center items-center gap-5 rounded-lg p-4 border-2 border-gray-200 shadow-inner max-h-[475px] overflow-hidden sm:overflow-auto">
               <p className="text-titles text-2xl font-bold w-full text-center">
                 {!viewReport && "Tu progreso en este curso"}
               </p>
