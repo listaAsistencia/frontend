@@ -2,7 +2,7 @@ import { api } from "./api";
 
 type PatchRequestArgs = {
   route: string;
-  body: any;
+  body?: any;
 };
 
 export const patchRequest = async ({ route, body }: PatchRequestArgs): Promise<void> => {

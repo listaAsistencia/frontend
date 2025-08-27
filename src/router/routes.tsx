@@ -9,7 +9,7 @@ import { ProtectedRoute } from './protectedroute';
 import { RecoveryRoute } from '../routes/Recoveryroute';
 import { StudentPage } from '../pages/homePage/studentPage/studentPage';
 import { TeacherPage } from '../pages/homePage/teacherPage/teacherPage';
-import { SettingsCard } from '../pages/homePage/teacherPage/components/settingsCard';
+import { ManageStudents } from '../pages/manageStudents';
 
 export const routes: RouteObject[] = [
 {
@@ -57,8 +57,9 @@ export const routes: RouteObject[] = [
     path: '/manage',
     element: (
         <ProtectedRoute requiredRole="docente">
-            <SettingsCard/>
+            <ManageStudents/>
         </ProtectedRoute>   
     ),
-}
+},
+
 ];
