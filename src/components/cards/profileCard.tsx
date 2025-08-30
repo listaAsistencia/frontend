@@ -18,7 +18,7 @@ const userRol=localStorage.getItem('userRole') || 'estudiante';
       </div>
 
       {/* opciones */}
-      <Link
+      {/* <Link
         to={isLoggedIn ? "/resetpassword/change" : "/resetpassword"}
         className="space-y-2 p-4 w-[80%] lg:w-[60%] border-2 border-gray-200 rounded-lg shadow-inner bg-white hover:bg-secondary transition-colors duration-300"
       >
@@ -30,7 +30,7 @@ const userRol=localStorage.getItem('userRole') || 'estudiante';
             <p className="text-sm font-medium text-gray-800">Cambiar contraseña</p>
           </div>
         </div>
-      </Link>
+      </Link> */}
     </div>
   );
 };
