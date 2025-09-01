@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiredRole: 'docente' | 'estudiante';
+  requiredRole: 'docente' | 'estudiante' | 'admin';
   fallbackPath?: string;
 }
 

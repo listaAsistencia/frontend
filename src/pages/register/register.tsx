@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { NavBar } from '../components/layout/components/navBar';
-import { Footer } from '../components/layout/components/footer';
-import { GeneralButton } from '../components/buttons/generalButton';
-import { showErrorNotification, showSuccessNotification } from '../utils/notifications/toasts';
-import { EyeIcon } from '../components/icons/eyeIcon';
+import { NavBar } from '../../components/layout/components/navBar';
+import { Footer } from '../../components/layout/components/footer';
+import { GeneralButton } from '../../components/buttons/generalButton';
+import { showErrorNotification, showSuccessNotification } from '../../utils/notifications/toasts';
+import { EyeIcon } from '../../components/icons/eyeIcon';
 import { useNavigate } from 'react-router-dom';
 
-export const LoginPage: React.FC = () => {
+export const RegisterStudent: React.FC = () => {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [mostrarPassword, setMostrarPassword] = useState(false);
@@ -14,15 +15,15 @@ export const LoginPage: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const API_LOGIN = import.meta.env.VITE_API_LOGIN;
+        const apiUrl = import.meta.env.VITE_BASE_URL + "auth/register";
 
         try {
-            const response = await fetch(API_LOGIN, {
+            const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ name, email, password }),
             });
 
             let data;
@@ -39,30 +40,15 @@ export const LoginPage: React.FC = () => {
                 return;
             }
 
-            if (data.token) {
-                console.log(data)
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('id', data.id);
-                localStorage.setItem('userRole', data.role);
-                localStorage.setItem('userName', data.name);
-                localStorage.setItem('userEmail', data.email);
-                localStorage.setItem('attendances', data.attendances);
-                showSuccessNotification(`Bienvenido/a ${data.name}`);
-
-                if (data.role === 'docente') {
-                    navigate("/home", { replace: true });
-                } else if (data.role === 'admin') {
-                    navigate("/register", { replace: true });
-                } else {
-                    navigate("/student", { replace: true });
-                }
+            if (data) {
+                showSuccessNotification(`Estudiante registrado exitosamente`);
             } else {
                 const errorMessage = data.message || data.error || "Error desconocido";
                 showErrorNotification(errorMessage);
             }
         } catch (error) {
-            console.error('Error al iniciar sesión:', error);
-            showErrorNotification('Error al iniciar sesión');
+            console.error('Error al registrar usuario:', error);
+            showErrorNotification('Error al reigstrar el usuario');
         }
     };
 
@@ -71,10 +57,21 @@ export const LoginPage: React.FC = () => {
             <NavBar hideLogout />
             <div className="relative flex min-h-screen text-gray-800 antialiased flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
                 <div className="relative py-3 mx-auto text-center w-full max-w-md md:max-w-lg lg:max-w-xl px-4 sm:px-0">
-                    <span className="text-xl md:text-2xl font-bold mb-6 block">Iniciar sesión con sus credenciales.</span>
+                    <span className="text-xl md:text-2xl font-bold mb-6 block">Registrar estudiante.</span>
                     <div className="mt-6 bg-white shadow-lg rounded-lg text-left">
                         <div className="h-3 bg-primary rounded-t-md" />
                         <form onSubmit={handleSubmit} className="px-10 py-8">
+                            <div className="mb-6">
+                                <label className="block text-lg font-bold">Nombre</label>
+                                <input
+                                    type="text"
+                                    placeholder="Nombre"
+                                    className="border w-full h-12 px-4 py-2 text-lg hover:outline-none focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </div>
+
                             <div className="mb-6">
                                 <label className="block text-lg font-bold">Correo electrónico</label>
                                 <input
@@ -106,7 +103,7 @@ export const LoginPage: React.FC = () => {
 
                             </div>
                             <div className="flex justify-between items-center">
-                                <GeneralButton text="Iniciar sesión" type="submit" hoverBgWhite={false} />
+                                <GeneralButton text="registrar" type="submit" hoverBgWhite={false} />
                                 {/* <a href='/sendmail' className="text-sm font-bold hover:underline text-gray-600 hover:text-primary">¿Olvidaste la contraseña?</a> */}
                             </div>
                         </form>

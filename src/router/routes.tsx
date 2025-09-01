@@ -10,56 +10,73 @@ import { RecoveryRoute } from '../routes/Recoveryroute';
 import { StudentPage } from '../pages/homePage/studentPage/studentPage';
 import { TeacherPage } from '../pages/homePage/teacherPage/teacherPage';
 import { ManageStudents } from '../pages/manageStudents';
+import { RegisterStudent } from '../pages/register/register';
 
 export const routes: RouteObject[] = [
-{
-  path:'/',element: <LoginPage/>
-},
+  {
+    path: '/', element: <LoginPage />
+  },
   { path: '/login', element: <LoginPage /> },
 
 
   { path: '/sendmail', element: <SendMail /> },
   { path: '/verificationcode', element: <VerificationCode /> },
-  { path: '/resetpassword', element: (<RecoveryRoute><ResetPassword flow="recovery" /></RecoveryRoute> ),},
-{
-  path: '/resetpassword/change',
-  element: (
-    <ProtectedRoute requiredRole={localStorage.getItem('userRole') as 'docente' | 'estudiante'}>
-      <ResetPassword flow="change" />
-    </ProtectedRoute>
-  )
-},
-{
+  { path: '/resetpassword', element: (<RecoveryRoute><ResetPassword flow="recovery" /></RecoveryRoute>), },
+  {
+    path: '/resetpassword/change',
+    element: (
+      <ProtectedRoute requiredRole={localStorage.getItem('userRole') as 'docente' | 'estudiante'}>
+        <ResetPassword flow="change" />
+      </ProtectedRoute>
+    )
+  },
+  {
     path: '/home',
     element: (
-        <ProtectedRoute requiredRole="docente">
-            <TeacherPage />
-        </ProtectedRoute>
+      <ProtectedRoute requiredRole="docente">
+        <TeacherPage />
+      </ProtectedRoute>
     ),
-},
+  },
   {
     path: '/student',
     element: (
-        <ProtectedRoute requiredRole="estudiante">
-            <StudentPage />
-        </ProtectedRoute>
+      <ProtectedRoute requiredRole="estudiante">
+        <StudentPage />
+      </ProtectedRoute>
     ),
-},
-{
+  },
+  {
     path: '/attendance',
     element: (
-        <ProtectedRoute requiredRole="docente">
-            <AttendancePage/>
-        </ProtectedRoute>   
+      <ProtectedRoute requiredRole="docente">
+        <AttendancePage />
+      </ProtectedRoute>
     ),
-},
-{
+  },
+  {
     path: '/manage',
     element: (
-        <ProtectedRoute requiredRole="docente">
-            <ManageStudents/>
-        </ProtectedRoute>   
+      <ProtectedRoute requiredRole="docente">
+        <ManageStudents />
+      </ProtectedRoute>
     ),
-},
+  },
+  {
+    path: '/manage',
+    element: (
+      <ProtectedRoute requiredRole="docente">
+        <ManageStudents />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/register',
+    element: (
+      <ProtectedRoute requiredRole="admin">
+        <RegisterStudent />
+      </ProtectedRoute>
+    ),
+  },
 
 ];
