@@ -107,7 +107,7 @@ export const LoginPage: React.FC = () => {
                             </div>
                             <div className="flex justify-between items-center">
                                 <GeneralButton text="Iniciar sesión" type="submit" hoverBgWhite={false} />
-                                {/* <a href='/sendmail' className="text-sm font-bold hover:underline text-gray-600 hover:text-primary">¿Olvidaste la contraseña?</a> */}
+                                <a href='/sendmail' className="text-sm font-bold hover:underline text-gray-600 hover:text-primary">¿Olvidaste la contraseña?</a>
                             </div>
                         </form>
                     </div>
